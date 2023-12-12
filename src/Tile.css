@@ -1,0 +1,8 @@
+.hidden {
+    display: none;
+}
+
+.farm-tile:hover > .hidden {
+    display: block;
+}
+
