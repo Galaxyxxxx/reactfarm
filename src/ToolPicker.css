@@ -1,6 +1,6 @@
 .Toolbar {
     position: absolute;
-    top: 10%;
+    top: 7%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
@@ -9,9 +9,71 @@
 
 .Tool-Status {
     position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    display: flex;
+}
+
+.Tool-Value {
+    position: absolute;
     top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
     display: flex;
 }
+
+.Tool-Growth {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    display: flex;
+}
+
+.button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button-delete {
+    background-color: rgb(133, 6, 6); 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button-deselect {
+    background-color: #565c5a;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button-harvest {
+    background-color: rgb(122, 121, 21);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

@@ -99,7 +99,7 @@ function App() {
         clickTile={clickTile}
       />
       <div className='week-btn'>
-        <button onClick={addWeek}>
+        <button className='button' onClick={addWeek}>
           Next week
         </button>
         </div>
