@@ -7,17 +7,15 @@ interface Summaryitemprops {
     imagesrc: string;
 }
 
-/*const pathToImage = (plantName = 'None'): string => {
-    return `./${plantName}.png`;
-}*/
-
 const Summaryitem: FC<Summaryitemprops> = ({plantName, moneyValue, imagesrc}) => {
     return (
+      <div>
         <div className='Summary-item'>
             <img src={imagesrc} alt='JP'></img>
             <span>{plantName}</span>
-            <span>{moneyValue}</span>
         </div>
+        <hr />
+      </div>
     )
 }
 export default Summaryitem;

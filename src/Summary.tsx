@@ -1,6 +1,7 @@
 import React from 'react';
 import plantDatabase from './PlantsDatabase';
 import Summaryitem from './Summaryitem';
+import './Summary.css'
 
 function Summary() {
   return (
