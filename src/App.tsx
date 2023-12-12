@@ -8,14 +8,15 @@ import plantDatabase from './PlantsDatabase';
 
 function App() {
   const [weekCount, setWeekCount] = useState<number>(1);
+  const color = useState<string>("#573535");
   const [currentTool, setCurrentTool] = useState<string>("None");
   const [farmTiles, setFarmTiles] = useState<FarmApp.FarmTile[][]>([
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}],
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}],
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}],
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}],
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}],
-      [{isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}, {isReady: false}]
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
+      [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}]
     ])
 
   const modifyElement = (xIndex: number, yIndex: number, newValue: FarmApp.FarmTile): void => {
@@ -35,36 +36,55 @@ function App() {
   }
 
   const clickTile = (xIndex: number, yIndex: number): void => {
-    console.log("TEST", xIndex, yIndex, currentTool);
+    console.log("TEST", xIndex, yIndex, currentTool, color);
     makeAction(xIndex, yIndex);
   }
 
   const makeAction = (xIndex: number, yIndex: number): void => {
     if (currentTool === "Delete") {
-      modifyElement(xIndex, yIndex, {isReady: false});
+      modifyElement(xIndex, yIndex, {isReady: false, color: '#573535'});
     } else if (currentTool === "Harvest") {
 
+      modifyElement(xIndex, yIndex, {isReady: false, color: '#573535'});
     } else if (currentTool === "None") {
       console.log(farmTiles[xIndex][yIndex])
     } else { 
       plantDatabase.forEach((plant) => {
         if (plant.plantName === currentTool) {
-          modifyElement(xIndex, yIndex, {plant: {plantName: plant.plantName, weekCount: 0, timeOfGrowth: plant.timeOfGrowth}, isReady: false});
-          console.log(xIndex, yIndex)
+          modifyElement(xIndex, yIndex, {plant: {plantName: plant.plantName, weekCount: 0, timeOfGrowth: plant.timeOfGrowth}, color: changeColor(plant.plantName),  isReady: false});
+            
         }
       })
+    }
+  }
+  
+  const changeColor = (plant = 'None'): string => {
+    switch(plant) {
+      case 'Wheat':
+        return '#cccf7e';
+      case 'Tomato':
+        return '#9e1321';
+      case 'Potato':
+        return '#8c5b22';
+      case 'Sunflower':
+        return '#d4b428';
+      case 'Cucumber':
+        return '#297a18';
+      default:
+        return '#573535';
     }
   }
 
   const addWeek = (): void => {
     setWeekCount(weekCount + 1);
-    //growPlant();
+    growPlant();
   }
 
   const growPlant = (): void => {
     farmTiles.forEach((farm) => {
-      let copy = farm.forEach(element => {
-      
+      farm.forEach(element => {
+        if (element.plant !== undefined && element.plant.weekCount !== element.plant.timeOfGrowth) element.plant.weekCount += 1;
+        if (element.plant !== undefined && element.plant.weekCount === element.plant.timeOfGrowth) element.isReady = true;
       }); 
     });;
   }
@@ -76,13 +96,15 @@ function App() {
       />
       <Farm 
         farmTiles={farmTiles} 
-        clickTile={clickTile} 
+        clickTile={clickTile}
       />
-      <div>
+      <div className='week-btn'>
         <button onClick={addWeek}>
           Next week
         </button>
-        <p>{weekCount}</p>
+        </div>
+        <div className='week-count'>
+        <span>Week: {weekCount}</span>
       </div>
       <Summary />
     </div>

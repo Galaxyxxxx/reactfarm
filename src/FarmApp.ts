@@ -9,6 +9,7 @@ declare module FarmApp {
     interface FarmTile {
         plant?: Plant;
         isReady: boolean;
+        color: string;
     }
 
     interface PlantPattern {

@@ -6,7 +6,6 @@ interface FarmProps {
     farmTiles: FarmApp.FarmTile[][];
     clickTile: (xIndex: number, yIndex: number) => void;
 }
-
 const Farm: FC<FarmProps> = ({farmTiles, clickTile}) => {
 
   return (

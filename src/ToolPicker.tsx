@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import plantDatabase from './PlantsDatabase';
+import './ToolPicker.css'
 
 interface ToolPickerProps {
     changeTool: (toolName: string) => void;
@@ -10,11 +11,13 @@ interface ToolPickerProps {
 const ToolPicker: FC<ToolPickerProps> = ({changeTool, currentTool}) => {
   return (
     <div>
-        <button onClick={() => {changeTool("None")}}>Deselect</button>
-        <button onClick={() => {changeTool("Delete")}}>Delete</button>
-        {plantDatabase.map((plant => <button onClick={() => {changeTool(plant.plantName)}}>{plant.plantName}</button>))}
-        <button onClick={() => {changeTool("Harvest")}}>Harvest</button>
-        {currentTool}
+      <div className='Toolbar'>
+          <button onClick={() => {changeTool("None")}}>Deselect</button>
+          <button onClick={() => {changeTool("Delete")}}>Delete</button>
+          {plantDatabase.map((plant => <button onClick={() => {changeTool(plant.plantName)}}>{plant.plantName}</button>))}
+          <button onClick={() => {changeTool("Harvest")}}>Harvest</button>
+      </div>
+          <span className='Tool-Status'>{currentTool}</span>
     </div>
   );
 }

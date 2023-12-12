@@ -12,7 +12,7 @@ interface TileProps {
 const Tile: FC<TileProps> = ({farmTile, xIndex, yIndex, clickTile}) => {
 
   return (
-    <div className="farm-tile" onClick={() => {clickTile(yIndex, xIndex)}}>
+    <div className="farm-tile" style={{background: farmTile.color}} onClick={() => {clickTile(yIndex, xIndex)}}>
         <span>{farmTile.plant?.plantName}</span><br/>
         <span>{farmTile.plant?.weekCount}{farmTile.plant?.plantName !== undefined && '/'}{farmTile.plant?.timeOfGrowth}</span>
     </div>
