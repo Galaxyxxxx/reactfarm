@@ -10,6 +10,14 @@ function App() {
   const [weekCount, setWeekCount] = useState<number>(1);
   const color = useState<string>("#573535");
   const [currentTool, setCurrentTool] = useState<string>("None");
+  const [harvestCounters, setHarvestCounters] = useState<Record<string, number>>({        
+    wheat: 0,
+    tomato: 0,
+    cucumber: 0,
+    potato: 0,
+    sunflower: 0,
+    money: 0
+  });
   const [farmTiles, setFarmTiles] = useState<FarmApp.FarmTile[][]>([
       [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
       [{isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}, {isReady: false, color: '#573535'}],
@@ -44,8 +52,12 @@ function App() {
     if (currentTool === "Delete") {
       modifyElement(xIndex, yIndex, {isReady: false, color: '#573535'});
     } else if (currentTool === "Harvest") {
-
-      modifyElement(xIndex, yIndex, {isReady: false, color: '#573535'});
+      let tileToHarvest: FarmApp.FarmTile = farmTiles[xIndex][yIndex];
+      if (tileToHarvest.isReady === true && tileToHarvest.plant !== undefined) {
+        addToCounter(tileToHarvest.plant.plantName);
+        modifyElement(xIndex, yIndex, {isReady: false, color: '#573535'});
+      } else {
+      }
     } else if (currentTool === "None") {
       console.log(farmTiles[xIndex][yIndex])
     } else { 
@@ -73,6 +85,18 @@ function App() {
       default:
         return '#573535';
     }
+  }
+
+  const addToCounter = (plant: string): void => {
+    const previousCount = harvestCounters[plant.toLocaleLowerCase()];
+    const previousMoney = harvestCounters.money;
+    const valueOfPlant = plantDatabase.find((plantFromBase) => plantFromBase.plantName === plant)?.moneyValue || 0
+    setHarvestCounters({
+      ...harvestCounters,
+      [plant.toLocaleLowerCase()]: previousCount + 1,
+      money: previousMoney + valueOfPlant
+    })
+    console.log(harvestCounters)
   }
 
   const addWeek = (): void => {
@@ -106,7 +130,7 @@ function App() {
         <div className='week-count'>
         <span>Week: {weekCount}</span>
       </div>
-      <Summary />
+      <Summary harvestCounters={harvestCounters} />
     </div>
   );
 }

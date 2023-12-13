@@ -5,14 +5,17 @@ interface Summaryitemprops {
     plantName: string;
     moneyValue: number;
     imagesrc: string;
+    harvestCount: number;
 }
 
-const Summaryitem: FC<Summaryitemprops> = ({plantName, moneyValue, imagesrc}) => {
+const Summaryitem: FC<Summaryitemprops> = ({plantName, moneyValue, imagesrc, harvestCount}) => {
     return (
       <div>
         <div className='Summary-item'>
             <img src={imagesrc} alt='JP'></img>
-            <span>{plantName}</span>
+            <span className='Summary-HarvestCount'>{harvestCount}</span>
+            <span className='Summary-ItemName'>{plantName}</span>
+
         </div>
         <hr />
       </div>
